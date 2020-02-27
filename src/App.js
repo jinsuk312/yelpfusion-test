@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 
-function App() {
-	return <div className="App">Naperville Businesses</div>;
+class App extends Component {
+	render() {
+		return (
+			<div className="App">
+				<h1>hello</h1>
+			</div>
+		);
+	}
 }
 
 export default App;
