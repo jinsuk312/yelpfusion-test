@@ -5,7 +5,7 @@ export class Navbar extends Component {
 		return (
 			<nav>
 				<h1>
-					<i className="naperville" /> {this.props.title}
+					<i className="fab fa-yelp" /> {this.props.title}
 				</h1>
 			</nav>
 		);
