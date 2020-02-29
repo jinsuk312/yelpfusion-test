@@ -28,11 +28,43 @@ class App extends Component {
 				console.log('error');
 			});
 	}
+	// search businesses
+	searchUsers = async text => {
+		this.setState({
+			loading: true
+		});
+		axios
+			.get(
+				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search`,
+				{
+					headers: {
+						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+					},
+					// another format for url params
+					params: {
+						location: 'naperville, il',
+						term: `${text}`,
+						distance: 0
+					}
+				}
+			)
+			.then(res => {
+				this.setState({ businesses: res.data.businesses, loading: false });
+				console.log(res.data.businesses);
+			})
+			.catch(err => {
+				console.log('error');
+			});
+	};
+	clearUsers = () => this.setState({ users: [], loading: false });
 	render() {
 		return (
 			<div className="App">
 				<Navbar />
-				<Search />
+				<Search
+					searchUsers={this.searchUsers}
+					clearBusinesses={this.clearBusinesses}
+				/>
 				<Businesses
 					loading={this.state.loading}
 					businesses={this.state.businesses}
