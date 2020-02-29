@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Navbar from './components/layout/Navbar';
 import Businesses from './components/businesses/Businesses';
 import axios from 'axios';
+require('dotenv').config();
+console.log(process.env.REACT_APP_API_KEY);
 class App extends Component {
 	state = {
 		businesses: []
