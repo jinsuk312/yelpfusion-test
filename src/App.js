@@ -3,10 +3,10 @@ import Navbar from './components/layout/Navbar';
 import Businesses from './components/businesses/Businesses';
 import axios from 'axios';
 require('dotenv').config();
-console.log(process.env.REACT_APP_API_KEY);
 class App extends Component {
 	state = {
-		businesses: []
+		businesses: [],
+		loading: false
 	};
 	async componentDidMount() {
 		axios
@@ -19,7 +19,8 @@ class App extends Component {
 				}
 			)
 			.then(res => {
-				console.log(res);
+				this.setState({ businesses: res.data.businesses, loading: false });
+				// console.log(res.data.businesses);
 			})
 			.catch(err => {
 				console.log('error');
@@ -29,7 +30,10 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Navbar />
-				<Businesses />
+				<Businesses
+					loading={this.state.loading}
+					businesses={this.state.businesses}
+				/>
 			</div>
 		);
 	}

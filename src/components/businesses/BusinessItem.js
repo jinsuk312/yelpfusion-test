@@ -2,19 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const BusinessItem = props => {
-	const { login, avatar_url, html_url } = props.user;
+	const { image_url, name } = props.business;
 	return (
 		<div style={businessStyle}>
 			<img
-				src={avatar_url}
+				src={image_url}
 				alt="client"
 				className="business"
 				style={{ width: '60px' }}
 			/>
-			<h3>{login}</h3>
-			<div>
-				<a href={html_url}>more</a>
-			</div>
+			<h3>Name: {name} </h3>
 		</div>
 	);
 };
