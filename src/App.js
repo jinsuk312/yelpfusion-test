@@ -64,6 +64,7 @@ class App extends Component {
 				<Search
 					searchUsers={this.searchUsers}
 					clearBusinesses={this.clearBusinesses}
+					showClear={this.state.businesses.length > 0 ? true : false}
 				/>
 				<Businesses
 					loading={this.state.loading}

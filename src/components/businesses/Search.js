@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 class Search extends Component {
 	static propTypes = {
 		searchUsers: PropTypes.func.isRequired,
-		clearBusinesses: PropTypes.func.isRequired
+		clearBusinesses: PropTypes.func.isRequired,
+		showClear: PropTypes.bool.isRequired
 	};
 	state = {
 		text: ''
@@ -35,10 +36,12 @@ class Search extends Component {
 						onChange={this.onChange}
 					/>
 					<input type="submit" value="Search" className="btn" />
+					{this.props.showClear && (
+						<button className="clear" onClick={this.props.clearBusinesses}>
+							Clear
+						</button>
+					)}
 				</form>
-				<button className="clear" onClick={this.props.clearBusinesses}>
-					Clear
-				</button>
 			</div>
 		);
 	}
