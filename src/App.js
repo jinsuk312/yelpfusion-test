@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from './components/layout/Navbar';
 import Businesses from './components/businesses/Businesses';
+import Search from './components/businesses/Search';
+
 import axios from 'axios';
 require('dotenv').config();
 class App extends Component {
@@ -30,6 +32,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Navbar />
+				<Search />
 				<Businesses
 					loading={this.state.loading}
 					businesses={this.state.businesses}
