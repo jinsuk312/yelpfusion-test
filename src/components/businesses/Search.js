@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 class Search extends Component {
 	static propTypes = {
 		searchUsers: PropTypes.func.isRequired,
-		clearBusinesses: PropTypes.func.isRequired,
-		showClear: PropTypes.bool.isRequired
+		clearUsers: PropTypes.func.isRequired,
+		showClear: PropTypes.bool.isRequired,
+		setAlert: PropTypes.func.isRequired
 	};
 	state = {
 		text: ''
@@ -18,13 +19,18 @@ class Search extends Component {
 	// since using an arrow function theres no need to bind(this)
 	onSubmit = e => {
 		e.preventDefault();
-		this.props.searchUsers(this.state.text);
-		this.setState({ text: '' });
+		if (this.state.text === '') {
+			this.props.setAlert('Please enter something', 'light');
+		} else {
+			this.props.searchUsers(this.state.text);
+			this.setState({ text: '' });
+		}
 	};
 	// once someone submits form it calls props.searchUsers
 	// when it fires call this.searchUsers
 	// which makes a request, which makes states the response
 	render() {
+		const { showClear, clearUsers } = this.props;
 		return (
 			<div>
 				<form onSubmit={this.onSubmit} action="" className="form">
@@ -36,8 +42,8 @@ class Search extends Component {
 						onChange={this.onChange}
 					/>
 					<input type="submit" value="Search" className="btn" />
-					{this.props.showClear && (
-						<button className="clear" onClick={this.props.clearBusinesses}>
+					{showClear && (
+						<button className="clear" onClick={clearUsers}>
 							Clear
 						</button>
 					)}
