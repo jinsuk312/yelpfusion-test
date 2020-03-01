@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const BusinessItem = props => {
-	const { image_url, name } = props.business;
+	const { image_url, name, id } = props.business;
 	return (
 		<div style={businessStyle}>
 			<img
@@ -12,6 +13,7 @@ const BusinessItem = props => {
 				style={{ width: '60px' }}
 			/>
 			<h3>Name: {name} </h3>
+			<Link to={`/user/${id}`}>More</Link>
 		</div>
 	);
 };

@@ -5,11 +5,13 @@ import Businesses from './components/businesses/Businesses';
 import Search from './components/businesses/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
+import Business from './components/businesses/Business';
 import axios from 'axios';
 require('dotenv').config();
 class App extends Component {
 	state = {
 		businesses: [],
+		business: {},
 		loading: false,
 		alert: null
 	};
@@ -60,6 +62,27 @@ class App extends Component {
 			});
 	};
 
+	getBusiness = async id => {
+		this.setState({
+			loading: true
+		});
+		axios
+			.get(
+				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+					}
+				}
+			)
+			.then(res => {
+				this.setState({ business: res.data, loading: false });
+			})
+			.catch(err => {
+				console.log('error');
+			});
+	};
+
 	clearUsers = () => this.setState({ users: [], loading: false });
 
 	setAlert = (msg, type) => {
@@ -68,7 +91,7 @@ class App extends Component {
 	};
 
 	render() {
-		const { businesses, loading } = this.state;
+		const { businesses, loading, business } = this.state;
 		return (
 			<Router>
 				<div className="App">
@@ -92,6 +115,18 @@ class App extends Component {
 								)}
 							/>
 							<Route exact path="/about" component={About} />
+							<Route
+								exact
+								path="/business/:id"
+								render={props => (
+									<Business
+										{...props}
+										getBusiness={this.getBusiness}
+										business={business}
+										loading={loading}
+									/>
+								)}
+							/>
 						</Switch>
 					</div>
 				</div>
