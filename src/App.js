@@ -7,6 +7,7 @@ import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import Business from './components/businesses/Business';
 import axios from 'axios';
+import YelpState from './context/yelp/YelpState';
 require('dotenv').config();
 const App = () => {
 	const [businesses, setBusinesses] = useState([]);
@@ -73,44 +74,46 @@ const App = () => {
 	};
 
 	return (
-		<Router>
-			<div className="App">
-				<Navbar />
-				<div className="container">
-					<Alert alert={alert} />
-					<Switch>
-						<Route
-							exact
-							path="/"
-							render={props => (
-								<Fragment>
-									<Search
-										searchUsers={searchUsers}
-										clearBusinesses={clearBusinesses}
-										showClear={businesses.length > 0 ? true : false}
-										setAlert={showAlert}
+		<YelpState>
+			<Router>
+				<div className="App">
+					<Navbar />
+					<div className="container">
+						<Alert alert={alert} />
+						<Switch>
+							<Route
+								exact
+								path="/"
+								render={props => (
+									<Fragment>
+										<Search
+											searchUsers={searchUsers}
+											clearBusinesses={clearBusinesses}
+											showClear={businesses.length > 0 ? true : false}
+											setAlert={showAlert}
+										/>
+										<Businesses loading={loading} businesses={businesses} />
+									</Fragment>
+								)}
+							/>
+							<Route exact path="/about" component={About} />
+							<Route
+								exact
+								path="/user/:id"
+								render={props => (
+									<Business
+										{...props}
+										getBusiness={getBusiness}
+										business={business}
+										loading={loading}
 									/>
-									<Businesses loading={loading} businesses={businesses} />
-								</Fragment>
-							)}
-						/>
-						<Route exact path="/about" component={About} />
-						<Route
-							exact
-							path="/user/:id"
-							render={props => (
-								<Business
-									{...props}
-									getBusiness={getBusiness}
-									business={business}
-									loading={loading}
-								/>
-							)}
-						/>
-					</Switch>
+								)}
+							/>
+						</Switch>
+					</div>
 				</div>
-			</div>
-		</Router>
+			</Router>
+		</YelpState>
 	);
 };
 

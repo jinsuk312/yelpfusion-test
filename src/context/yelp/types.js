@@ -1,0 +1,6 @@
+export const SEARCH_BUSINESSES = 'SEARCH_BUSINESSES';
+export const GET_BUSINESS = 'GET_BUSINESS';
+export const CLEAR_BUSINESSES = 'CLEAR_BUSINESSES';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
