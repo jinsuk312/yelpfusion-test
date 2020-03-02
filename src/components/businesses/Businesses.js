@@ -3,14 +3,14 @@ import BusinessItem from './BusinessItem';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import YelpContext from '../../context/yelp/yelpContext';
-const Businesses = ({ businesses, loading }) => {
+const Businesses = () => {
 	const yelpContext = useContext(YelpContext);
-	if (loading) {
+	if (yelpContext.loading) {
 		return <Spinner />;
 	} else {
 		return (
 			<div style={businessStyle}>
-				{businesses.map(business => (
+				{yelpContext.businesses.map(business => (
 					<BusinessItem
 						key={business.id}
 						image_url={business.image_url}

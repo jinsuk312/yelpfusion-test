@@ -64,7 +64,7 @@ const App = () => {
 											showClear={businesses.length > 0 ? true : false}
 											setAlert={showAlert}
 										/>
-										<Businesses loading={loading} businesses={businesses} />
+										<Businesses />
 									</Fragment>
 								)}
 							/>
