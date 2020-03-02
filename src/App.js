@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Businesses from './components/businesses/Businesses';
@@ -8,38 +8,16 @@ import About from './components/pages/About';
 import Business from './components/businesses/Business';
 import axios from 'axios';
 require('dotenv').config();
-class App extends Component {
-	state = {
-		businesses: [],
-		business: {},
-		loading: false,
-		alert: null
-	};
-	// async componentDidMount() {
-	// 	axios
-	// 		.get(
-	// 			"https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location='naperville,il'",
-	// 			{
-	// 				headers: {
-	// 					Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
-	// 				}
-	// 			}
-	// 		)
-	// 		.then(res => {
-	// 			this.setState({ businesses: res.data.businesses, loading: false });
-	// 			// console.log(res.data.businesses);
-	// 		})
-	// 		.catch(err => {
-	// 			console.log('error');
-	// 		});
-	// }
+const App = () => {
+	const [businesses, setBusinesses] = useState([]);
+	const [business, setBusiness] = useState({});
+	const [loading, setLoading] = useState(false);
+	const [alert, setAlert] = useState(null);
 
 	// search businesses
-	searchUsers = async text => {
-		this.setState({
-			loading: true
-		});
-		axios
+	const searchUsers = async text => {
+		setLoading(true);
+		const res = await axios
 			.get(
 				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search`,
 				{
@@ -55,19 +33,18 @@ class App extends Component {
 				}
 			)
 			.then(res => {
-				this.setState({ businesses: res.data.businesses, loading: false });
-				console.log(res.data.businesses);
+				setBusinesses(res.data.businesses);
+				setLoading(false);
 			})
 			.catch(err => {
-				console.log('error');
+				console.error(err);
 			});
 	};
 
-	getBusiness = async id => {
-		this.setState({
-			loading: true
-		});
-		axios
+	const getBusiness = async id => {
+		setLoading(true);
+
+		const res = await axios
 			.get(
 				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
 				{
@@ -77,62 +54,64 @@ class App extends Component {
 				}
 			)
 			.then(res => {
-				this.setState({ business: res.data, loading: false });
+				setBusiness(res.data);
+				setLoading(false);
 			})
 			.catch(err => {
-				console.log('error');
+				console.error(err);
 			});
 	};
 
-	clearBusinesses = () => this.setState({ businesses: [], loading: false });
-
-	setAlert = (msg, type) => {
-		this.setState({ alert: { msg, type } });
-		setTimeout(() => this.setState({ alert: null }), 4000);
+	const clearBusinesses = () => {
+		setBusinesses([]);
+		setLoading(false);
 	};
 
-	render() {
-		const { businesses, loading, business } = this.state;
-		return (
-			<Router>
-				<div className="App">
-					<Navbar />
-					<div className="container">
-						<Alert alert={this.state.alert} />
-						<Switch>
-							<Route
-								exact
-								path="/"
-								render={props => (
-									<Fragment>
-										<Search
-											searchUsers={this.searchUsers}
-											clearBusinesses={this.clearBusinesses}
-											showClear={businesses.length > 0 ? true : false}
-											setAlert={this.setAlert}
-										/>
-										<Businesses loading={loading} businesses={businesses} />
-									</Fragment>
-								)}
-							/>
-							<Route exact path="/about" component={About} />
-							<Route
-								exact
-								path="/user/:id"
-								render={props => (
-									<Business
-										{...props}
-										getBusiness={this.getBusiness}
-										business={business}
-										loading={loading}
+	const showAlert = (msg, type) => {
+		setAlert({ msg, type });
+		setTimeout(() => setAlert(null), 4000);
+	};
+
+	return (
+		<Router>
+			<div className="App">
+				<Navbar />
+				<div className="container">
+					<Alert alert={alert} />
+					<Switch>
+						<Route
+							exact
+							path="/"
+							render={props => (
+								<Fragment>
+									<Search
+										searchUsers={searchUsers}
+										clearBusinesses={clearBusinesses}
+										showClear={businesses.length > 0 ? true : false}
+										setAlert={showAlert}
 									/>
-								)}
-							/>
-						</Switch>
-					</div>
+									<Businesses loading={loading} businesses={businesses} />
+								</Fragment>
+							)}
+						/>
+						<Route exact path="/about" component={About} />
+						<Route
+							exact
+							path="/user/:id"
+							render={props => (
+								<Business
+									{...props}
+									getBusiness={getBusiness}
+									business={business}
+									loading={loading}
+								/>
+							)}
+						/>
+					</Switch>
 				</div>
-			</Router>
-		);
-	}
-}
+			</div>
+		</Router>
+	);
+};
+
 export default App;
