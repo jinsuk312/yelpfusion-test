@@ -33,6 +33,7 @@ class App extends Component {
 	// 			console.log('error');
 	// 		});
 	// }
+
 	// search businesses
 	searchUsers = async text => {
 		this.setState({
@@ -87,7 +88,7 @@ class App extends Component {
 
 	setAlert = (msg, type) => {
 		this.setState({ alert: { msg, type } });
-		setTimeout(() => this.setState({ alert: null }), 3500);
+		setTimeout(() => this.setState({ alert: null }), 4000);
 	};
 
 	render() {
@@ -117,7 +118,7 @@ class App extends Component {
 							<Route exact path="/about" component={About} />
 							<Route
 								exact
-								path="/business/:id"
+								path="/user/:id"
 								render={props => (
 									<Business
 										{...props}
