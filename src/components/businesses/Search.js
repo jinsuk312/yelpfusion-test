@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Search = ({ searchBusinesses, showClear, clearBusinesses, setAlert }) => {
+const Search = ({ searchUsers, showClear, clearBusinesses, setAlert }) => {
 	const [text, setText] = useState('');
+
 	const onChange = e => {
-		this.setText(e.target.value);
+		setText(e.target.value);
 	};
 	// since using an arrow function theres no need to bind(this)
 	const onSubmit = e => {
@@ -12,8 +13,8 @@ const Search = ({ searchBusinesses, showClear, clearBusinesses, setAlert }) => {
 		if (text === '') {
 			setAlert('Please enter something', 'light');
 		} else {
-			searchBusinesses(text);
-			setText({ text: '' });
+			searchUsers(text);
+			setText('');
 		}
 	};
 	// once someone submits form it calls props.searchUsers
