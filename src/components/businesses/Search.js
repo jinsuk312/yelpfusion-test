@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import YelpContext from '../../context/yelp/yelpContext';
 
-const Search = ({ searchUsers, showClear, clearBusinesses, setAlert }) => {
+const Search = ({ showClear, clearBusinesses, setAlert }) => {
+	const yelpContext = useContext(YelpContext);
 	const [text, setText] = useState('');
 
 	const onChange = e => {
@@ -13,7 +15,7 @@ const Search = ({ searchUsers, showClear, clearBusinesses, setAlert }) => {
 		if (text === '') {
 			setAlert('Please enter something', 'light');
 		} else {
-			searchUsers(text);
+			yelpContext.searchBusinesses(text);
 			setText('');
 		}
 	};
@@ -43,7 +45,6 @@ const Search = ({ searchUsers, showClear, clearBusinesses, setAlert }) => {
 };
 
 Search.propTypes = {
-	searchUsers: PropTypes.func.isRequired,
 	clearBusinesses: PropTypes.func.isRequired,
 	showClear: PropTypes.bool.isRequired,
 	setAlert: PropTypes.func.isRequired

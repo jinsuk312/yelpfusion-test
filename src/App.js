@@ -15,33 +15,6 @@ const App = () => {
 	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
 
-	// search businesses
-	const searchUsers = async text => {
-		setLoading(true);
-		const res = await axios
-			.get(
-				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search`,
-				{
-					headers: {
-						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
-					},
-					// another format for url params
-					params: {
-						location: 'naperville, il',
-						term: `${text}`,
-						distance: 0
-					}
-				}
-			)
-			.then(res => {
-				setBusinesses(res.data.businesses);
-				setLoading(false);
-			})
-			.catch(err => {
-				console.error(err);
-			});
-	};
-
 	const getBusiness = async id => {
 		setLoading(true);
 
@@ -87,7 +60,6 @@ const App = () => {
 								render={props => (
 									<Fragment>
 										<Search
-											searchUsers={searchUsers}
 											clearBusinesses={clearBusinesses}
 											showClear={businesses.length > 0 ? true : false}
 											setAlert={showAlert}
