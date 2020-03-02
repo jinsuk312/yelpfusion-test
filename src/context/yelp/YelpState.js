@@ -38,7 +38,7 @@ const YelpState = props => {
 			.then(res => {
 				dispatch({
 					type: SEARCH_BUSINESSES,
-					payload: res.data
+					payload: res.data.businesses
 				});
 			})
 			.catch(err => {
