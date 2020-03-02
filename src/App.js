@@ -84,7 +84,7 @@ class App extends Component {
 			});
 	};
 
-	clearUsers = () => this.setState({ users: [], loading: false });
+	clearBusinesses = () => this.setState({ businesses: [], loading: false });
 
 	setAlert = (msg, type) => {
 		this.setState({ alert: { msg, type } });
@@ -107,7 +107,7 @@ class App extends Component {
 									<Fragment>
 										<Search
 											searchUsers={this.searchUsers}
-											clearUsers={this.clearUsers}
+											clearBusinesses={this.clearBusinesses}
 											showClear={businesses.length > 0 ? true : false}
 											setAlert={this.setAlert}
 										/>
