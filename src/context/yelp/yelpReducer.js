@@ -3,7 +3,7 @@ import {
 	SET_LOADING,
 	CLEAR_BUSINESSES,
 	GET_BUSINESS
-} from './types';
+} from '../types';
 // reduce takes state, action
 export default (state, action) => {
 	switch (action.type) {

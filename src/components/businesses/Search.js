@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import YelpContext from '../../context/yelp/yelpContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const Search = ({ setAlert }) => {
+const Search = () => {
 	const yelpContext = useContext(YelpContext);
+	const alertContext = useContext(AlertContext);
+
 	const [text, setText] = useState('');
 
 	const onChange = e => {
@@ -13,7 +15,7 @@ const Search = ({ setAlert }) => {
 	const onSubmit = e => {
 		e.preventDefault();
 		if (text === '') {
-			setAlert('Please enter something', 'light');
+			alertContext.setAlert('Please enter something', 'light');
 		} else {
 			yelpContext.searchBusinesses(text);
 			setText('');
@@ -44,7 +46,4 @@ const Search = ({ setAlert }) => {
 	);
 };
 
-Search.propTypes = {
-	setAlert: PropTypes.func.isRequired
-};
 export default Search;

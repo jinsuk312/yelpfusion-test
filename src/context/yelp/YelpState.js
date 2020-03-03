@@ -7,7 +7,7 @@ import {
 	SET_LOADING,
 	CLEAR_BUSINESSES,
 	GET_BUSINESS
-} from './types';
+} from '../types';
 
 const YelpState = props => {
 	const initialState = {
