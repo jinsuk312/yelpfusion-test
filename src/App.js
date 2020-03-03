@@ -6,11 +6,9 @@ import Search from './components/businesses/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import Business from './components/businesses/Business';
-import axios from 'axios';
 import YelpState from './context/yelp/YelpState';
 require('dotenv').config();
 const App = () => {
-	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
 
 	const showAlert = (msg, type) => {
@@ -37,11 +35,7 @@ const App = () => {
 								)}
 							/>
 							<Route exact path="/about" component={About} />
-							<Route
-								exact
-								path="/user/:id"
-								render={props => <Business {...props} />}
-							/>
+							<Route exact path="/user/:id" component={Business} />
 						</Switch>
 					</div>
 				</div>
