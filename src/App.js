@@ -10,36 +10,8 @@ import axios from 'axios';
 import YelpState from './context/yelp/YelpState';
 require('dotenv').config();
 const App = () => {
-	const [businesses, setBusinesses] = useState([]);
-	const [business, setBusiness] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
-
-	const getBusiness = async id => {
-		setLoading(true);
-
-		const res = await axios
-			.get(
-				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
-				{
-					headers: {
-						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
-					}
-				}
-			)
-			.then(res => {
-				setBusiness(res.data);
-				setLoading(false);
-			})
-			.catch(err => {
-				console.error(err);
-			});
-	};
-
-	const clearBusinesses = () => {
-		setBusinesses([]);
-		setLoading(false);
-	};
 
 	const showAlert = (msg, type) => {
 		setAlert({ msg, type });
@@ -59,11 +31,7 @@ const App = () => {
 								path="/"
 								render={props => (
 									<Fragment>
-										<Search
-											clearBusinesses={clearBusinesses}
-											showClear={businesses.length > 0 ? true : false}
-											setAlert={showAlert}
-										/>
+										<Search setAlert={showAlert} />
 										<Businesses />
 									</Fragment>
 								)}
@@ -72,14 +40,7 @@ const App = () => {
 							<Route
 								exact
 								path="/user/:id"
-								render={props => (
-									<Business
-										{...props}
-										getBusiness={getBusiness}
-										business={business}
-										loading={loading}
-									/>
-								)}
+								render={props => <Business {...props} />}
 							/>
 						</Switch>
 					</div>

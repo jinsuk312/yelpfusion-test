@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import BusinessItem from './BusinessItem';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
 import YelpContext from '../../context/yelp/yelpContext';
 const Businesses = () => {
 	const yelpContext = useContext(YelpContext);
@@ -22,10 +21,7 @@ const Businesses = () => {
 		);
 	}
 };
-Businesses.propTypes = {
-	businesses: PropTypes.array.isRequired,
-	loading: PropTypes.bool.isRequired
-};
+
 const businessStyle = {
 	display: 'grid',
 	gridTemplateColumns: 'repeat(3, 1fr)',

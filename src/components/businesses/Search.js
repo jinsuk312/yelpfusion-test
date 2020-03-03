@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import YelpContext from '../../context/yelp/yelpContext';
 
-const Search = ({ showClear, clearBusinesses, setAlert }) => {
+const Search = ({ setAlert }) => {
 	const yelpContext = useContext(YelpContext);
 	const [text, setText] = useState('');
 
@@ -34,8 +34,8 @@ const Search = ({ showClear, clearBusinesses, setAlert }) => {
 					onChange={onChange}
 				/>
 				<input type="submit" value="Search" className="btn" />
-				{showClear && (
-					<button className="clear" onClick={clearBusinesses}>
+				{yelpContext.businesses.length > 0 && (
+					<button className="clear" onClick={yelpContext.clearBusinesses}>
 						Clear
 					</button>
 				)}
@@ -45,8 +45,6 @@ const Search = ({ showClear, clearBusinesses, setAlert }) => {
 };
 
 Search.propTypes = {
-	clearBusinesses: PropTypes.func.isRequired,
-	showClear: PropTypes.bool.isRequired,
 	setAlert: PropTypes.func.isRequired
 };
 export default Search;

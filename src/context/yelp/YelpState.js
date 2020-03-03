@@ -46,9 +46,30 @@ const YelpState = props => {
 			});
 	};
 	// get business
+	const getBusiness = async id => {
+		setLoading();
 
+		const res = await axios
+			.get(
+				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+					}
+				}
+			)
+			.then(res => {
+				dispatch({
+					type: GET_BUSINESS,
+					payload: res.data
+				});
+			})
+			.catch(err => {
+				console.error(err);
+			});
+	};
 	// clear businesses
-
+	const clearBusinesses = () => dispatch({ type: CLEAR_BUSINESSES });
 	// set loading
 	const setLoading = () => dispatch({ type: SET_LOADING });
 
@@ -58,7 +79,9 @@ const YelpState = props => {
 				businesses: state.businesses,
 				business: state.business,
 				loading: state.loading,
-				searchBusinesses
+				searchBusinesses,
+				clearBusinesses,
+				getBusiness
 			}}
 		>
 			{props.children}

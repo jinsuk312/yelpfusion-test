@@ -1,13 +1,16 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useContext } from 'react';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-const Business = ({ business, loading, getBusiness, match }) => {
+import YelpContext from '../../context/yelp/yelpContext';
+const Business = ({ match }) => {
+	const yelpContext = useContext(YelpContext);
+	const { getBusiness, loading, business } = yelpContext;
+
 	useEffect(() => {
 		getBusiness(match.params.id);
 		//eslint-disable-next-line
 	}, []);
-
 	const {
 		name,
 		image_url,
@@ -43,9 +46,4 @@ const Business = ({ business, loading, getBusiness, match }) => {
 	);
 };
 
-Business.propTypes = {
-	loading: PropTypes.bool,
-	business: PropTypes.object.isRequired,
-	getBusiness: PropTypes.func.isRequired
-};
 export default Business;
