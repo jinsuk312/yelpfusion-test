@@ -8,7 +8,12 @@ import {
 	CLEAR_BUSINESSES,
 	GET_BUSINESS
 } from '../types';
-
+let yelpAPI;
+if (process.env.NODE_ENV !== 'production') {
+	yelpAPI = process.env.REACT_APP_API_KEY;
+} else {
+	yelpAPI = process.env.API_KEY;
+}
 const YelpState = props => {
 	const initialState = {
 		businesses: [],
@@ -25,7 +30,7 @@ const YelpState = props => {
 				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search`,
 				{
 					headers: {
-						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+						Authorization: `Bearer ${yelpAPI}`
 					},
 					// another format for url params
 					params: {
@@ -56,7 +61,7 @@ const YelpState = props => {
 				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
 				{
 					headers: {
-						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
+						Authorization: `Bearer ${yelpAPI}`
 					}
 				}
 			)
