@@ -30,7 +30,6 @@ const YelpState = props => {
 				`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search`,
 				{
 					headers: {
-						'Access-Control-Allow-Origin': '*',
 						Authorization: `Bearer ${yelpAPI}`
 					},
 
