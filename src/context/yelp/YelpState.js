@@ -31,7 +31,8 @@ const YelpState = props => {
 					params: {
 						location: 'naperville, il',
 						term: `${text}`,
-						distance: 0
+						radius: 4500,
+						limit: 50
 					}
 				}
 			)
@@ -40,6 +41,7 @@ const YelpState = props => {
 					type: SEARCH_BUSINESSES,
 					payload: res.data.businesses
 				});
+				console.log(res.data);
 			})
 			.catch(err => {
 				console.error(err);
