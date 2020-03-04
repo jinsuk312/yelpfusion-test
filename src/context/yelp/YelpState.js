@@ -32,6 +32,7 @@ const YelpState = props => {
 					headers: {
 						Authorization: `Bearer ${yelpAPI}`
 					},
+					crossdomain: true,
 					// another format for url params
 					params: {
 						location: 'naperville, il',
