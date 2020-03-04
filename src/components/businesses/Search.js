@@ -27,7 +27,7 @@ const Search = () => {
 
 	return (
 		<div>
-			<form onSubmit={onSubmit} action="" className="form">
+			<form onSubmit={onSubmit} className="form">
 				<input
 					type="text"
 					name="text"
@@ -35,9 +35,16 @@ const Search = () => {
 					placeholder="Search Naperville Businesses"
 					onChange={onChange}
 				/>
-				<input type="submit" value="Search" className="btn" />
+				<input
+					type="submit"
+					value="Search"
+					className="btn btn-dark btn-block"
+				/>
 				{yelpContext.businesses.length > 0 && (
-					<button className="clear" onClick={yelpContext.clearBusinesses}>
+					<button
+						className="btn btn-light btn-block"
+						onClick={yelpContext.clearBusinesses}
+					>
 						Clear
 					</button>
 				)}

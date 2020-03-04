@@ -8,6 +8,7 @@ import About from './components/pages/About';
 import Business from './components/businesses/Business';
 import YelpState from './context/yelp/YelpState';
 import AlertState from './context/alert/AlertState';
+import './App.css';
 
 require('dotenv').config();
 const App = () => {

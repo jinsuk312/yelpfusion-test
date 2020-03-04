@@ -23,23 +23,30 @@ const Business = ({ match }) => {
 
 	return (
 		<Fragment>
-			<Link to="/" className="btn">
+			<Link to="/" className="btn btn-light">
 				Back to Search
 			</Link>
-			<div className="grid-2">
-				<div>
+			<div className=" card">
+				<div className="all-center">
 					<div>
-						<img src={image_url} alt="business" style={{ width: '150px' }} />
+						<img
+							src={image_url}
+							alt="business"
+							style={{ width: '150px' }}
+							className="round-img"
+						/>
 						<h1>{name}</h1>
 						<p>Phone: {display_phone}</p>
 						<p>Rating: {rating}</p>
 						<p>Review Count: {review_count}</p>
 					</div>
+					<div>
+						<strong>Website:</strong>
+						<a className="btn btn-dark" href={url}>
+							Link
+						</a>
+					</div>
 				</div>
-			</div>
-
-			<div>
-				Website: <a href={url}>Link</a>
 			</div>
 		</Fragment>
 	);

@@ -5,25 +5,27 @@ import { Link } from 'react-router-dom';
 const BusinessItem = props => {
 	const { image_url, name, id } = props.business;
 	return (
-		<div style={businessStyle}>
+		<div className="card text-center">
 			<img
 				src={image_url}
 				alt="client"
-				className="business"
+				className="round-img"
 				style={{ width: '60px' }}
 			/>
 			<h3>Name: {name} </h3>
-			<Link to={`/user/${id}`}>More</Link>
+			<Link to={`/user/${id}`} className="btn btn-dark btn-sm my-1">
+				More
+			</Link>
 		</div>
 	);
 };
 BusinessItem.propTypes = {
 	business: PropTypes.object.isRequired
 };
-const businessStyle = {
-	display: 'grid',
-	gridTemplateColumns: 'repeat(3, 1fr)',
-	gridGap: '1rem'
-};
+// const businessStyle = {
+// 	display: 'grid',
+// 	gridTemplateColumns: 'repeat(3, 1fr)',
+// 	gridGap: '1rem'
+// };
 
 export default BusinessItem;
